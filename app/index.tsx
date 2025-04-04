@@ -6,7 +6,7 @@ export default function Index() {
     <View style={styles.container}>
       <Text style={styles.title}>Create Serie</Text>
       <Text style={styles.label}>Name</Text>
-      <TextInput style={styles.input} placeholder="" placeholderTextColor="#E0F2F1" />
+      <TextInput style={styles.input} placeholder="First Serie" placeholderTextColor="#E0F2F1" />
       <Link href="/ExerciceScreen" style={styles.button}>
         Next
       </Link>
@@ -32,13 +32,14 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 20,
-    marginTop: 20,
+    marginTop: 10,
     textAlign: "center",
-    padding: 5,
+    alignSelf: 'center',
+    padding: 10,
     backgroundColor: '#FF578C',
     borderRadius: 5,
     color: '#000',
-    maxWidth: 70,
+    width: 120,
   },
   label: {
     fontSize: 16,
