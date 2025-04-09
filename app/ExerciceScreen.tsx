@@ -1,7 +1,10 @@
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from "react-native";
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function Index() {
+    const { serieName } = useLocalSearchParams<{ serieName: string }>();
+    const router = useRouter();
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
     const [repetition, setRepetition] = useState("");
@@ -37,8 +40,26 @@ export default function Index() {
         setBreakTime("");
     };
 
+    const saveSerie = () => {
+        if (exercises.length === 0) {
+            Alert.alert("No exercises", "Please add at least one exercise.");
+            return;
+        }
+
+        Alert.alert("Saved!", `Serie "${serieName}" saved with ${exercises.length} exercises.`);
+
+        router.push({
+            pathname: "/",
+            params: {
+                newSerie: serieName
+            }
+        });
+    };
+
     return (
         <ScrollView style={styles.container}>
+            <Text style={styles.title}>Serie: {serieName}</Text>
+
             <Text style={styles.title}>Exercice</Text>
             <Text style={styles.label}>Name</Text>
             <TextInput
@@ -95,6 +116,9 @@ export default function Index() {
                     ))}
                 </View>
             )}
+            <TouchableOpacity style={[styles.button, { backgroundColor: "#AAF683" }]} onPress={saveSerie}>
+                <Text style={[styles.buttonText, { color: "#000" }]}>Save Serie</Text>
+            </TouchableOpacity>
         </ScrollView>
     );
 }
