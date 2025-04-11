@@ -99,8 +99,8 @@ export default function Timer() {
     if (isFinished) {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Félicitations 🎉</Text>
-                <Text style={styles.finishText}>Vous avez terminé votre série ! Bravo !</Text>
+                <Text style={styles.title}>Congratulation 🎉</Text>
+                <Text style={styles.finishText}>You have completed your series !</Text>
                 <TouchableOpacity
                     style={[styles.button, styles.buttonReset, { marginTop: 30 }]}
                     onPress={handleReset}
