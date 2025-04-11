@@ -101,6 +101,12 @@ export default function Timer() {
             <View style={styles.container}>
                 <Text style={styles.title}>Félicitations 🎉</Text>
                 <Text style={styles.finishText}>Vous avez terminé votre série ! Bravo !</Text>
+                <TouchableOpacity
+                    style={[styles.button, styles.buttonReset, { marginTop: 30 }]}
+                    onPress={handleReset}
+                >
+                    <Text style={styles.buttonText}>Restart Serie</Text>
+                </TouchableOpacity>
             </View>
         );
     }
