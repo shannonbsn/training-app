@@ -51,7 +51,8 @@ export default function Index() {
         router.push({
             pathname: "/",
             params: {
-                newSerie: serieName
+                newSerie: serieName,
+                exercises: JSON.stringify(exercises),
             }
         });
     };

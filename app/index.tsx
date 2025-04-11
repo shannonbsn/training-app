@@ -4,14 +4,25 @@ import React, { useEffect, useState } from "react";
 
 export default function Index() {
   const [serieName, setSerieName] = useState("");
-  const [savedSeries, setSavedSeries] = useState<string[]>([]);
-  const { newSerie } = useLocalSearchParams();
+  const [savedSeries, setSavedSeries] = useState<{ name: string, exercises: any[] }[]>([]);
+  const { newSerie, exercises } = useLocalSearchParams();
 
   useEffect(() => {
-    if (newSerie && typeof newSerie === 'string') {
-      setSavedSeries((prev) => [...prev, newSerie]);
+    if (newSerie && typeof newSerie === 'string' && exercises) {
+      try {
+        const parsedExercises = JSON.parse(exercises as string);
+        setSavedSeries((prev) => [
+          ...prev,
+          {
+            name: newSerie,
+            exercises: parsedExercises,
+          },
+        ]);
+      } catch (e) {
+        console.error("Failed to parse exercises:", e);
+      }
     }
-  }, [newSerie]);
+  }, [newSerie, exercises]);
 
   return (
     <View style={styles.container}>
@@ -33,8 +44,15 @@ export default function Index() {
 
       <Text style={styles.title}>View Serie</Text>
       {savedSeries.map((s, i) => (
-        <Text key={i} style={{ color: "#fff" }}>{s}</Text>
+        <Link
+          key={i}
+          href={{ pathname: "/TimerScreen", params: { serieName: s.name, exercises: JSON.stringify(s.exercises) } }}
+          style={[styles.TimerLink, { marginTop: 10 }]}
+        >
+          <Text style={{ color: "#000", textAlign: "center" }}>{s.name}</Text>
+        </Link>
       ))}
+
     </View>
   );
 }
@@ -54,6 +72,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 10,
+  },
+  TimerLink: {
+    fontSize: 20,
+    marginTop: 10,
+    textAlign: "center",
+    padding: 10,
+    backgroundColor: '#E6C5FF',
+    borderRadius: 5,
+    color: '#000',
+    width: 120,
   },
   button: {
     fontSize: 20,
