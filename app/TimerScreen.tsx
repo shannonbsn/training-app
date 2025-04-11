@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
+import { Audio } from "expo-av";
 
 type Exercise = {
     name: string;
@@ -18,7 +19,7 @@ export default function Timer() {
     const [timeLeft, setTimeLeft] = useState(0);
     const [isBreak, setIsBreak] = useState(false);
     const [isRunning, setIsRunning] = useState(false);
-    const [isFinished, setIsFinished] = useState(false); // Indique si la série est terminée
+    const [isFinished, setIsFinished] = useState(false);
 
     useEffect(() => {
         if (parsedExercises.length > 0) {
@@ -45,7 +46,16 @@ export default function Timer() {
         };
     }, [timeLeft, isRunning]);
 
-    const handleTimerEnd = () => {
+    const playSound = async () => {
+        const { sound } = await Audio.Sound.createAsync(
+            require('../assets/sound/bip_end.mp3')
+        );
+        await sound.playAsync();
+    };
+
+    const handleTimerEnd = async () => {
+        await playSound();
+
         const current = parsedExercises[currentExerciseIndex];
 
         if (!isBreak) {
@@ -59,9 +69,9 @@ export default function Timer() {
                     setIsBreak(false);
                     setTimeLeft(parseInt(parsedExercises[currentExerciseIndex + 1].time));
                 } else {
-                    setTimeLeft(0); // Série terminée
+                    setTimeLeft(0);
                     setIsRunning(false);
-                    setIsFinished(true); // Active le message de fin
+                    setIsFinished(true);
                 }
             }
         } else {
@@ -77,7 +87,7 @@ export default function Timer() {
 
     const handleReset = () => {
         setIsRunning(false);
-        setIsFinished(false); // Réinitialise l'état de fin
+        setIsFinished(false);
         setCurrentExerciseIndex(0);
         setCurrentRepetition(1);
         setIsBreak(false);
