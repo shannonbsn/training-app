@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
 export default function Index() {
@@ -56,6 +56,10 @@ export default function Index() {
             }
         });
     };
+
+    useEffect(() => {
+        setExercises([]);
+    }, []);
 
     return (
         <ScrollView style={styles.container}>

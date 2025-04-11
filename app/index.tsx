@@ -11,13 +11,13 @@ export default function Index() {
     if (newSerie && typeof newSerie === 'string' && exercises) {
       try {
         const parsedExercises = JSON.parse(exercises as string);
-        setSavedSeries((prev) => [
-          ...prev,
-          {
-            name: newSerie,
-            exercises: parsedExercises,
-          },
-        ]);
+
+        setSavedSeries((prev) => {
+          const exists = prev.find((s) => s.name === newSerie);
+          if (exists) return prev;
+          return [...prev, { name: newSerie, exercises: parsedExercises }];
+        });
+
       } catch (e) {
         console.error("Failed to parse exercises:", e);
       }
