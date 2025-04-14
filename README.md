@@ -49,7 +49,13 @@ Join our community of developers creating universal apps.
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
-## Video presentation training app
+## Maquette Training App
+
+This is the link for see the maquette of my project
+
+- https://www.figma.com/design/1T8F4To95DnrKEimRFWyxG/Maquette-app-training?t=f1hadhaDp1thZbVX-1
+
+## Video presentation Training App
 
 This is the link for see the presentation of the app
 
